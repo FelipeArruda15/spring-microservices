@@ -4,6 +4,7 @@ import com.felipearruda.msclientes.domain.Cliente;
 import com.felipearruda.msclientes.dto.ClienteDTO;
 import com.felipearruda.msclientes.service.ClienteService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -13,6 +14,7 @@ import java.net.URI;
 @RestController
 @RequestMapping(value = "/api/cliente")
 @RequiredArgsConstructor
+@Slf4j
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -31,6 +33,8 @@ public class ClienteController {
                 .query("cpf={cpf}")
                 .buildAndExpand(cliente.getCpf())
                 .toUri();
+
+        log.info("Salvando cliente");
 
         return ResponseEntity.created(headerLocation).build();
     }
